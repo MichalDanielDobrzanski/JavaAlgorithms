@@ -17,10 +17,11 @@ public class Main {
                                 }
                         )
                 ),
-                new LongestPalindrome(new StringData("babac"))
+                new LongestPalindrome(new StringData("babac")),
+                new GasStations(new StringData(""))
         ));
         algos.addAll(
-                IntStream.range(7,9)
+                IntStream.range(7, 9)
                         .boxed()
                         .map((number) -> new BinarySearch(new ArrayWithIntData(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, number + 1)))
                         .toList()
