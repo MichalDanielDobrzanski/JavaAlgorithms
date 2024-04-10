@@ -14,7 +14,7 @@ public class ThreeSum extends BaseAlgorithm<StringData> {
 
     @Override
     void execute() {
-        var result = threeSumOnSquared(input);
+        var result = threeSumOptimised(input);
 
         for (List<Integer> list : result) {
             for (Integer item : list) {
@@ -55,6 +55,38 @@ public class ThreeSum extends BaseAlgorithm<StringData> {
                     // nums[k] = -nums[i] - nums[j]
                     int counterpart = target - nums[j];
                     counterparts.put(counterpart, nums[j]);
+                }
+            }
+        }
+        return new ArrayList<>(results);
+    }
+
+    public List<List<Integer>> threeSumOptimised(int[] nums) {
+        // [-1,0,1,2,-1,-4]
+        // sorted:
+        // [-4,-1,-1,0,1,2]
+        //      i    j k
+
+        Set<List<Integer>> results = new HashSet<>();
+        Arrays.sort(nums);
+
+        for (int i = 0; i < nums.length; i++) {
+            // optimisation
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            int j = i + 1;
+            int k = nums.length - 1;
+
+            while (j < k) {
+                int sum = nums[i] + nums[j] + nums[k];
+                if (sum == 0) {
+                    results.add(List.of(nums[i], nums[j], nums[k]));
+                }
+                if (sum < 0) {
+                    j++;
+                } else {
+                    k--;
                 }
             }
         }
