@@ -26,6 +26,9 @@ public class Main {
                         .map((number) -> new BinarySearch(new ArrayWithIntData(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, number + 1)))
                         .toList()
         );
+        algos.add(
+                new MaxTimeForTickets(new StringData(""))
+        );
         for (BaseAlgorithm algo : algos) {
             System.out.println(algo.describeWithInput() + ":");
             algo.execute();
