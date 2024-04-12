@@ -56,48 +56,66 @@ public class Converter extends BaseAlgorithm<StringData> {
 //
 // <p>This is another paragraph with a <del>strikethrough</del> word.</p>
 
+
+    // String input = "This is a paragraph with a soft\n" + "line break.\n\n" + "This is another paragraph that has\n" +
+    //        "> Some text that\n" + "> is in a\n" + "> block quote.\n\n" +
+    //        "This is another paragraph with a ~~strikethrough~~ word.";
     private String convert(String input) {
-        StringBuilder builder = new StringBuilder();
-        String[] paragraphs = input.split("\n\n");
-        for (String p : paragraphs) {
-            builder.append("<p>");
+        if (input.isEmpty()) return "";
+        StringBuilder builder = new StringBuilder("<p>");
 
-            boolean blockMode = false;
-            boolean strikethroughMode = false;
-            for (int i = 0; i < p.length(); i++) {
-                char curr = p.charAt(i);
-                if (curr == '>') {
-                    if (!blockMode) {
-                        blockMode = true;
-                        builder.append("\n  ").append("<blockquote>");
-                    }
-                } else if (curr == '~') {
-                    if (!strikethroughMode) {
-                        strikethroughMode = true;
-                        i++;
-                        builder.append("<del>");
-                    } else {
-                        strikethroughMode = false;
-                        i++;
-                        builder.append("</del>");
-                    }
-                } else if (curr == '\n') {
-                    if (i + 1 < p.length() && p.charAt(i + 1) != '>' && blockMode) {
-                        builder.append("</blockquote>").append("\n  ");
-                        blockMode = false;
-                    } else {
-                        builder.append("<br />");
-                    }
-                } else {
-                    builder.append(curr);
-                }
+        boolean paragraphMode = true;
+        boolean strikethroughMode = false;
+        boolean blockquoteMode = false;
+        for (int i = 0; i < input.length(); i++) {
+            char curr = input.charAt(i);
+
+            if (!paragraphMode) {
+                builder.append("<p>");
+                paragraphMode = true;
             }
-            if (blockMode) builder.append("</blockquote>").append('\n');
 
-            builder.append("</p>").append("\n\n");
+            if (curr == '\n') {
+                char next = (i + 1 < input.length()) ? input.charAt(i + 1) : ' ';
 
+                if (next != '\n') {
+                    builder.append("<br />");
+                }
 
+                if (next == '\n') {
+                    if (blockquoteMode) {
+                        builder.append("</blockquote>").append('\n');
+                        blockquoteMode = false;
+                    }
+                    builder.append("</p>").append("\n\n");
+                    i++;
+                    paragraphMode = false;
+                } else if (next == '>') {
+                    if (!blockquoteMode) {
+                        builder.append('\n').append("<blockquote>");
+                        blockquoteMode = true;
+                    }
+                    i++;
+                }
+            } else if (curr == '~') {
+                char next = (i + 1 < input.length()) ? input.charAt(i + 1) : ' ';
+                if (next == '~') {
+                    if (!strikethroughMode) {
+                        builder.append("<del>");
+                        strikethroughMode = true;
+                    } else {
+                        builder.append("</del>");
+                        strikethroughMode = false;
+                    }
+                    i++;
+                }
+            } else {
+                builder.append(curr);
+            }
         }
+
+        if (paragraphMode) builder.append("</p>");
+
         return builder.toString();
     }
 
