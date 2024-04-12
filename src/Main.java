@@ -28,7 +28,8 @@ public class Main {
         );
         algos.addAll(List.of(
                         new MaxTimeForTickets(new StringData("")),
-                        new ThreeSum(new StringData(""))
+                        new ThreeSum(new StringData("")),
+                        new Converter(new StringData(""))
                 )
         );
         for (BaseAlgorithm algo : algos) {
