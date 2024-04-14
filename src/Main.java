@@ -32,6 +32,14 @@ public class Main {
                         new Converter(new StringData(""))
                 )
         );
+
+        algos.addAll(
+                List.of(
+                        new ArrayWithIntData(new int[]{2, 4, 5}, 7),
+                        new ArrayWithIntData(new int[]{1, 4, 5}, 11)
+                ).stream().map(CoinChange::new).toList()
+        );
+
         for (BaseAlgorithm algo : algos) {
             System.out.println(algo.describeWithInput() + ":");
             algo.execute();
