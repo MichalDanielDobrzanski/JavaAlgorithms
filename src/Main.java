@@ -1,6 +1,7 @@
 import input.ArrayWithIntData;
 import input.DoubleArrayData;
 import input.StringData;
+import input.StringWithIntData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,13 @@ public class Main {
                 List.of(
                         new ArrayWithIntData(new int[]{4, 2, 2, 7, 8, 1, 2, 8, 1, 0}, 8)
                 ).stream().map(SmallestSubarrayGreaterOrEqualThan::new).toList()
+        );
+
+
+        algos.addAll(
+                List.of(
+                        new StringWithIntData("AAAHHIBC", 2)
+                ).stream().map(LongestSubstringLengthWithKMostDistinctCharacters::new).toList()
         );
 
         for (BaseAlgorithm algo : algos) {
