@@ -40,6 +40,12 @@ public class Main {
                 ).stream().map(CoinChange::new).toList()
         );
 
+        algos.addAll(
+                List.of(
+                        new ArrayWithIntData(new int[]{4, 2, 2, 7, 8, 1, 2, 8, 1, 0}, 8)
+                ).stream().map(SmallestSubarrayGreaterOrEqualThan::new).toList()
+        );
+
         for (BaseAlgorithm algo : algos) {
             System.out.println(algo.describeWithInput() + ":");
             algo.execute();
