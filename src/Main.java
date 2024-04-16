@@ -1,7 +1,4 @@
-import input.ArrayWithIntData;
-import input.DoubleArrayData;
-import input.StringData;
-import input.StringWithIntData;
+import input.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +49,12 @@ public class Main {
                 List.of(
                         new StringWithIntData("AAAHHIBC", 2)
                 ).stream().map(LongestSubstringLengthWithKMostDistinctCharacters::new).toList()
+        );
+
+        algos.addAll(
+                List.of(
+                        new ArrayData(new int[]{7, 6, 4, 1, 9, 8, 3})
+                ).stream().map(QuickSort::new).toList()
         );
 
         for (BaseAlgorithm algo : algos) {
