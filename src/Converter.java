@@ -44,7 +44,6 @@ public class Converter extends BaseAlgorithm<StringData> {
 // > Some text that
 // > is in a
 // > block quote.
-// New one
 //
 // This is another paragraph with a ~~strikethrough~~ word.
 
@@ -63,46 +62,65 @@ public class Converter extends BaseAlgorithm<StringData> {
 
     // String input = "This is a paragraph with a soft\nline break.\n\nThis is another paragraph that has\n> Some text that\n> is in a\n> block quote.\n\nThis is another paragraph with a ~~strikethrough~~ word.";
     private String convert(String input) {
-        if (input.isBlank()) return "";
+        // 2. paragraphs -> end (\n\n), if there is something after then add start
+        // 1. soft breaks -> single \n
+        // 4. strikethrough -> start with ~~, end with next ~~
+        // 3. blockquotes -> start \n>_ (_ is space), end if not met on the next line
 
-        StringBuilder builder = new StringBuilder("<p>");
+        if (input.isEmpty()) return "";
 
-        boolean paragraphMode = true;
-        boolean blockquoteMode = false;
+        StringBuilder builder = new StringBuilder();
+        builder.append("<p>");
+
+        boolean endOfParagraph = false;
+        boolean isStrikeThrough = false;
+        boolean isBlockquote = false;
         for (int i = 0; i < input.length(); i++) {
             char curr = input.charAt(i);
-
-            if (!paragraphMode) {
-                builder.append("<p>");
-                paragraphMode = true;
-            }
-
             if (curr == '\n') {
                 char next = i + 1 < input.length() ? input.charAt(i + 1) : ' ';
-
-                if (next != '\n') {
-                    builder.append("<br />");
-                }
-
+                // paragraphs
                 if (next == '\n') {
-                    if (blockquoteMode) {
-                        builder.append("</blockquote>").append('\n');
-                        blockquoteMode = false;
+                    if (isBlockquote) {
+                        builder.append("</blockquote>").append("\n");
+                        isBlockquote = false;
                     }
                     builder.append("</p>").append("\n\n");
-                    paragraphMode = false;
+                    endOfParagraph = true;
                     i++;
-                } else if (next == '>') {
-                    int nextAfter = i + 2 < input.length() ? input.charAt(i + 2) : '0';
-                    if (nextAfter == ' ') {
-                        if (!blockquoteMode) {
-                            builder.append('\n').append("<blockquote>");
-                            blockquoteMode = true;
+                } else {
+                    builder.append("<br />");
+                    if (next == '>') {
+                        char nextNext = i + 2 < input.length() ? input.charAt(i + 2) : '_';
+                        if (nextNext == ' ') {
+                            // blockquotes
+                            if (!isBlockquote) {
+                                builder.append("\n").append("<blockquote>");
+                                isBlockquote = true;
+                            }
+                            i += 2;
                         }
-                        i += 2;
                     }
                 }
+            } else if (curr == '~') {
+                char next = i + 1 < input.length() ? input.charAt(i + 1) : ' ';
+                if (next == '~') {
+                    if (!isStrikeThrough) {
+                        builder.append("<del>");
+                        isStrikeThrough = true;
+                    } else {
+                        builder.append("</del>");
+                        isStrikeThrough = false;
+                    }
+                    i++;
+                } else {
+                    builder.append(curr);
+                }
             } else {
+                if (endOfParagraph) {
+                    builder.append("<p>");
+                    endOfParagraph = false;
+                }
                 builder.append(curr);
             }
         }

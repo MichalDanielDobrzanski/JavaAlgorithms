@@ -10,8 +10,25 @@ public class BinarySearch extends BaseAlgorithm<ArrayWithIntData> {
     void execute() {
         int[] data = this.input.array;
         int number = this.input.number;
-        int index = binarySearch(data, number);
+//        int index = binarySearch(data, number);
+        int index = binarySearchBroken(data, number);
         System.out.println("Resulting index is: " + index);
+    }
+
+    public static int binarySearchBroken(int[] arr, int target) {
+        int low = 0;
+        int high = arr.length - 1;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (arr[mid] < target) {
+                low = mid + 1;
+            } else if (arr[mid] > target) {
+                high = mid - 1;
+            } else {
+                return mid;
+            }
+        }
+        return -1;
     }
 
     private int binarySearch(int[] data, int number) {
