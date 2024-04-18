@@ -57,6 +57,16 @@ public class Main {
                 ).stream().map(QuickSort::new).toList()
         );
 
+        algos.addAll(
+                List.of(
+                        new CharArrayWithStringData(new char[][]{
+                                new char[]{'A', 'B', 'C', 'E'},
+                                new char[]{'S', 'F', 'C', 'S'},
+                                new char[]{'A', 'D', 'E', 'E'}
+                        }, "ABCCED")
+                ).stream().map(WordSearch::new).toList()
+        );
+
         for (BaseAlgorithm algo : algos) {
             System.out.println(algo.describeWithInput() + ":");
             algo.execute();
