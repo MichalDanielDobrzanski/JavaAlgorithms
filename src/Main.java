@@ -67,6 +67,19 @@ public class Main {
                 ).stream().map(WordSearch::new).toList()
         );
 
+        algos.add(
+                new FriendsOfFriends(
+                        new AdjacencyListData(new List[]{
+                                List.of(2, 3),  // John(0)
+                                List.of(2), // Paul(1)
+                                List.of(0, 1),  // Tom(2)
+                                List.of(0, 4),  // George(3)
+                                List.of(3, 5),  // Rob(4)
+                                List.of(4), // Cory(5)
+                        })
+                )
+        );
+
         for (BaseAlgorithm algo : algos) {
             System.out.println(algo.describeWithInput() + ":");
             algo.execute();
