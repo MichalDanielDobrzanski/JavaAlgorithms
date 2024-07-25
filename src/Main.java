@@ -80,10 +80,47 @@ public class Main {
                 )
         );
 
+        maximizeInviteesWithoutConflict(algos);
+
         for (BaseAlgorithm algo : algos) {
             System.out.println(algo.describeWithInput() + ":");
             algo.execute();
             System.out.println("\n");
         }
+    }
+
+    private static void maximizeInviteesWithoutConflict(List<BaseAlgorithm> algorithms) {
+        // Maximum number of invitees: 2
+        var maximizeInviteesWithoutConflictInput1 = List.of(
+                new int[]{0, 1},
+                new int[]{1, 2},
+                new int[]{2, 3},
+                new int[]{3, 4},
+                new int[]{0, 4}
+        );
+        algorithms.add(
+                new MaximizeInviteesWithoutConflict(
+                        new IntWithListData<>(5, maximizeInviteesWithoutConflictInput1)
+                )
+        );
+
+        var maximizeInviteesWithoutConflictInput2 = List.of(
+                new int[]{0, 1},
+                new int[]{0, 2},
+                new int[]{0, 3},
+                new int[]{1, 4},
+                new int[]{2, 5},
+                new int[]{3, 6},
+                new int[]{4, 5},
+                new int[]{6, 7},
+                new int[]{7, 8},
+                new int[]{8, 9},
+                new int[]{1, 9}
+        );
+        algorithms.add(
+                new MaximizeInviteesWithoutConflict(
+                        new IntWithListData<>(10, maximizeInviteesWithoutConflictInput2)
+                )
+        );
     }
 }

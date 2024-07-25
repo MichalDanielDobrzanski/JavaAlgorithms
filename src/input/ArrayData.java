@@ -2,12 +2,7 @@ package input;
 
 import java.util.Arrays;
 
-public class ArrayData implements Textable {
-    public final int[] array;
-
-    public ArrayData(int[] array) {
-        this.array = array;
-    }
+public record ArrayData(int[] array) implements Textable {
 
     @Override
     public String asText() {

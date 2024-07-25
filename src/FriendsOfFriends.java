@@ -7,7 +7,7 @@ import java.util.*;
  */
 public class FriendsOfFriends extends BaseAlgorithm<AdjacencyListData> {
 
-    FriendsOfFriends(AdjacencyListData adjacencyListData) {
+    public FriendsOfFriends(AdjacencyListData adjacencyListData) {
         super(adjacencyListData);
     }
 

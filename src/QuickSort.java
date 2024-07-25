@@ -9,7 +9,7 @@ public class QuickSort extends BaseAlgorithm<ArrayData> {
 
     @Override
     void execute() {
-        int[] array = input.array;
+        int[] array = input.array();
         quickSort(array, 0, array.length - 1);
         System.out.println("Sorted: " + Arrays.toString(array));
     }
