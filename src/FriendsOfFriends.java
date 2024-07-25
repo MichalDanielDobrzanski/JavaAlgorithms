@@ -56,7 +56,7 @@ public class FriendsOfFriends extends BaseAlgorithm<AdjacencyListData> {
 
                     for (int j = 0; j < adjacencyList[friend].size(); j++) {
                         int friendOfFriend = adjacencyList[friend].get(j);
-                        if (friendOfFriend != user && !adjacencyList[user].contains(friendOfFriend)) {
+                        if (!visited[friendOfFriend]) {
                             friendsOfFriends.add(friendOfFriend);
                         }
                     }
@@ -81,12 +81,13 @@ public class FriendsOfFriends extends BaseAlgorithm<AdjacencyListData> {
 
             for (int i = 0; i < adjacencyList[current].size(); i++) {
                 int friend = adjacencyList[current].get(i);
-                if (visited[friend]) continue;
-                visited[friend] = true;
-                queue.add(new UserDepth(friend, userDepth.depth + 1));
+                if (!visited[friend]) {
+                    visited[friend] = true;
+                    queue.add(new UserDepth(friend, userDepth.depth + 1));
 
-                if (userDepth.depth == 1) {
-                    friendsOfFriends.add(friend);
+                    if (userDepth.depth == 1) {
+                        friendsOfFriends.add(friend);
+                    }
                 }
             }
         }
