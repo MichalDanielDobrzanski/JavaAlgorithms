@@ -38,28 +38,22 @@ public class FriendsOfFriends extends BaseAlgorithm<AdjacencyListData> {
     // Friends for 2 are: [3, 4, 5]
     private Set<Integer> findFriends(int user, List<Integer>[] adjacencyList) {
         Set<Integer> friendsOfFriends = new HashSet<>();
-
         boolean[] visited = new boolean[adjacencyList.length];
 
-        Queue<Integer> queue = new LinkedList<>();
-        queue.add(user);
+        Queue<UserDepth> queue = new LinkedList<>();
+        queue.add(new UserDepth(user, 0));
         visited[user] = true;
 
         while (!queue.isEmpty()) {
-            int current = queue.poll();
+            UserDepth curr = queue.poll();
+            if (curr.depth >= 2) {
+                friendsOfFriends.add(curr.user);
+            }
 
-            for (int i = 0; i < adjacencyList[current].size(); i++) {
-                int friend = adjacencyList[current].get(i);
+            for (int friend : adjacencyList[curr.user]) {
                 if (!visited[friend]) {
-                    queue.add(friend);
                     visited[friend] = true;
-
-                    for (int j = 0; j < adjacencyList[friend].size(); j++) {
-                        int friendOfFriend = adjacencyList[friend].get(j);
-                        if (!visited[friendOfFriend]) {
-                            friendsOfFriends.add(friendOfFriend);
-                        }
-                    }
+                    queue.add(new UserDepth(friend, curr.depth + 1));
                 }
             }
         }
