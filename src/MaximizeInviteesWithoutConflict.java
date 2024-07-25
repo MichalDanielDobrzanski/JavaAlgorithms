@@ -33,8 +33,8 @@ public class MaximizeInviteesWithoutConflict extends BaseAlgorithm<IntWithListDa
         }
 
         boolean canInvite = true;
-        for (int j = 0; j < i; j++) {
-            if (selected[j] && conflictGraph[i][j]) {
+        for (int j = 0; j < conflictGraph.length; j++) {
+            if (conflictGraph[i][j] && selected[j]) {
                 canInvite = false;
                 break;
             }
