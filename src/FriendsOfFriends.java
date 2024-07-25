@@ -71,17 +71,16 @@ public class FriendsOfFriends extends BaseAlgorithm<AdjacencyListData> {
 
         while (!queue.isEmpty()) {
             UserDepth userDepth = queue.poll();
-            int current = userDepth.user;
+            if (userDepth.depth == 2) {
+                friendsOfFriends.add(userDepth.user);
+            }
 
+            int current = userDepth.user;
             for (int i = 0; i < adjacencyList[current].size(); i++) {
                 int friend = adjacencyList[current].get(i);
                 if (!visited[friend]) {
                     visited[friend] = true;
                     queue.add(new UserDepth(friend, userDepth.depth + 1));
-
-                    if (userDepth.depth == 1) {
-                        friendsOfFriends.add(friend);
-                    }
                 }
             }
         }
