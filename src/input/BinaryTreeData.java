@@ -27,8 +27,10 @@ public class BinaryTreeData extends AlgorithmData<BinaryTree> {
         while (!queue.isEmpty()) {
             NodeWithLevel curr = queue.poll();
 
-            if (content.get(curr.level) == null) {
-                content.add(List.of(curr.node.value));
+            if (content.size() <= curr.level) {
+                var list = new LinkedList<Integer>();
+                list.add(curr.node.value);
+                content.add(list);
             } else {
                 content.get(curr.level).add(curr.node.value);
             }
@@ -43,10 +45,10 @@ public class BinaryTreeData extends AlgorithmData<BinaryTree> {
             }
         }
 
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder("\n");
         for (List<Integer> list : content) {
             for (int val : list) {
-                sb.append(val);
+                sb.append(val).append("   ");
             }
             sb.append("\n");
         }

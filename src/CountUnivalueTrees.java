@@ -1,4 +1,5 @@
 import input.BinaryTreeData;
+import input.model.BinaryTree;
 
 public class CountUnivalueTrees extends BaseAlgorithm<BinaryTreeData> {
 
@@ -8,11 +9,11 @@ public class CountUnivalueTrees extends BaseAlgorithm<BinaryTreeData> {
 
     @Override
     void execute() {
-
+        BinaryTree.Node root = input.data.root;
     }
 
     @Override
     protected String describe() {
-        return "Counting univalue trees";
+        return "Counting univalue trees for " + input.asText();
     }
 }

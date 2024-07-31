@@ -1,4 +1,5 @@
 import input.*;
+import input.model.BinaryTree;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,11 +83,21 @@ public class Main {
 
         maximizeInviteesWithoutConflict(algos);
 
+        countUnivalueTrees(algos);
+
         for (BaseAlgorithm algo : algos) {
             System.out.println(algo.describeWithInput() + ":");
             algo.execute();
             System.out.println("\n");
         }
+    }
+
+    private static void countUnivalueTrees(List<BaseAlgorithm> algos) {
+        BinaryTree.Node left = new BinaryTree.Node(1, null, null);
+        BinaryTree.Node right = new BinaryTree.Node(1, null, null);
+        BinaryTree.Node root = new BinaryTree.Node(1, left, right);
+        BinaryTreeData binaryTreeData = new BinaryTreeData(new BinaryTree(root));
+        algos.add(new CountUnivalueTrees(binaryTreeData));
     }
 
     private static void maximizeInviteesWithoutConflict(List<BaseAlgorithm> algorithms) {
