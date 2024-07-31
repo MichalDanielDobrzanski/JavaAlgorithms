@@ -1,11 +1,17 @@
 package input;
 
+import input.base.AlgorithmData;
+
 import java.util.Arrays;
 
-public record ArrayData(int[] array) implements Textable {
+public class ArrayData extends AlgorithmData<int[]> {
+
+    public ArrayData(int[] data) {
+        super(data);
+    }
 
     @Override
     public String asText() {
-        return Arrays.toString(array);
+        return Arrays.toString(data);
     }
 }

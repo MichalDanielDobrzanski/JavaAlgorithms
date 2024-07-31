@@ -7,8 +7,8 @@ public class WordSearch extends BaseAlgorithm<CharArrayWithStringData> {
 
     @Override
     void execute() {
-        char[][] board = input.matrix;
-        String word = input.input;
+        char[][] board = input.first;
+        String word = input.second;
 
         boolean exists = exist(board, word);
         System.out.println("Exists " + word + "? : " + exists);

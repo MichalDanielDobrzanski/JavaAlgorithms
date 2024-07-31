@@ -1,13 +1,12 @@
 package input;
 
+import input.base.AlgorithmData;
+
 import java.util.Arrays;
 
-public class DoubleArrayData implements Textable {
-
-    public final int[][] data;
-
+public class DoubleArrayData extends AlgorithmData<int[][]> {
     public DoubleArrayData(int[][] data) {
-        this.data = data;
+        super(data);
     }
 
     @Override

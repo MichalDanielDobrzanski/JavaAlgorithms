@@ -13,7 +13,7 @@ public class FriendsOfFriends extends BaseAlgorithm<AdjacencyListData> {
 
     @Override
     void execute() {
-        List<Integer>[] adjacencyList = input.adjacencyList;
+        List<Integer>[] adjacencyList = input.data;
 
         int user = 0;
         Set<Integer> friendsOfFriends = findFriends(user, adjacencyList);

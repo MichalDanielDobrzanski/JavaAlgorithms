@@ -9,8 +9,8 @@ public class CoinChange extends BaseAlgorithm<ArrayWithIntData> {
 
     @Override
     void execute() {
-        int[] coins = input.array;
-        int amount = input.number;
+        int[] coins = input.first;
+        int amount = input.second;
         int result = coinChange(coins, amount);
         System.out.println("Min coins number is: " + result);
     }

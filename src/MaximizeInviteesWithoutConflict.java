@@ -13,8 +13,8 @@ public class MaximizeInviteesWithoutConflict extends BaseAlgorithm<IntWithListDa
     @Override
     void execute() {
         maxInvitees = 0;
-        int people = input.value();
-        List<int[]> conflicts = input.inputs();
+        int people = input.first;
+        List<int[]> conflicts = input.second;
         boolean[][] conflictGraph = new boolean[people][people];
         for (int[] conflict : conflicts) {
             conflictGraph[conflict[0]][conflict[1]] = true;

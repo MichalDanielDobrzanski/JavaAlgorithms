@@ -1,11 +1,11 @@
 package input;
 
-public class StringData implements Textable {
+import input.base.AlgorithmData;
 
-    public final String data;
+public class StringData extends AlgorithmData<String> {
 
     public StringData(String data) {
-        this.data = data;
+        super(data);
     }
 
     @Override

@@ -1,9 +1,15 @@
 package input;
 
-public record IntData(int value) implements Textable {
+import input.base.AlgorithmData;
+
+public class IntData extends AlgorithmData<Integer> {
+
+    public IntData(Integer data) {
+        super(data);
+    }
 
     @Override
     public String asText() {
-        return "Input: " + value;
+        return "Input: " + data;
     }
 }

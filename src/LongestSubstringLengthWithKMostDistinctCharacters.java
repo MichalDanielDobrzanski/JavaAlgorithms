@@ -9,7 +9,7 @@ import java.util.Map;
  * - AAAAAAAABB
  * k = 1
  * - AAAAAA
- *
+ * <p>
  * Ref: https://gist.github.com/Schachte/87d7c0165a584f26b3ad7845f8010387
  */
 public class LongestSubstringLengthWithKMostDistinctCharacters extends BaseAlgorithm<StringWithIntData> {
@@ -19,8 +19,8 @@ public class LongestSubstringLengthWithKMostDistinctCharacters extends BaseAlgor
 
     @Override
     void execute() {
-        String text = input.input;
-        int k = input.number;
+        String text = input.first;
+        int k = input.second;
         int longestLength = solve(text, k);
         System.out.println("longestLength is " + longestLength);
     }
@@ -61,6 +61,6 @@ public class LongestSubstringLengthWithKMostDistinctCharacters extends BaseAlgor
 
     @Override
     protected String describe() {
-        return "Longest Substring Length with " + input.number + " most distinct characters";
+        return "Longest Substring Length with " + input.second + " most distinct characters";
     }
 }

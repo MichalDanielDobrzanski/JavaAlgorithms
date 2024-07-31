@@ -1,17 +1,16 @@
 package input;
 
-public class StringWithIntData implements Textable {
+import input.base.AlgorithmPairData;
 
-    public final String input;
-    public final int number;
+public class StringWithIntData extends AlgorithmPairData<String, Integer> {
 
-    public StringWithIntData(String input, int number) {
-        this.input = input;
-        this.number = number;
+
+    public StringWithIntData(String first, Integer second) {
+        super(first, second);
     }
 
     @Override
     public String asText() {
-        return "Input: " + input + ", Num: " + number;
+        return "first: " + first + ", second: " + second;
     }
 }

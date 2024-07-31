@@ -1,6 +1,6 @@
-import input.Textable;
+import input.base.BaseAlgorithmData;
 
-public abstract class BaseAlgorithm<INPUT extends Textable> {
+public abstract class BaseAlgorithm<INPUT extends BaseAlgorithmData> {
     protected INPUT input;
 
     BaseAlgorithm(INPUT input) {

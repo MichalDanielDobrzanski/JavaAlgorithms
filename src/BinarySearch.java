@@ -8,8 +8,8 @@ public class BinarySearch extends BaseAlgorithm<ArrayWithIntData> {
 
     @Override
     void execute() {
-        int[] data = this.input.array;
-        int number = this.input.number;
+        int[] data = this.input.first;
+        int number = this.input.second;
 //        int index = binarySearch(data, number);
         int index = binarySearchBroken(data, number);
         System.out.println("Resulting index is: " + index);

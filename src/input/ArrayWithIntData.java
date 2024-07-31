@@ -1,18 +1,17 @@
 package input;
 
+import input.base.AlgorithmPairData;
+
 import java.util.Arrays;
 
-public class ArrayWithIntData implements Textable {
-    public final int[] array;
-    public final int number;
+public class ArrayWithIntData extends AlgorithmPairData<int[], Integer> {
 
-    public ArrayWithIntData(int[] array, int number) {
-        this.array = array;
-        this.number = number;
+    public ArrayWithIntData(int[] first, Integer second) {
+        super(first, second);
     }
 
     @Override
     public String asText() {
-        return Arrays.toString(array) + " and " + number;
+        return "First: " + Arrays.toString(first) + ", second: " + second;
     }
 }

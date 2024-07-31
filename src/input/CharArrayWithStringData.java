@@ -1,19 +1,17 @@
 package input;
 
+import input.base.AlgorithmPairData;
+
 import java.util.Arrays;
 
-public class CharArrayWithStringData implements Textable {
+public class CharArrayWithStringData extends AlgorithmPairData<char[][], String> {
 
-    public final char[][] matrix;
-    public final String input;
-
-    public CharArrayWithStringData(char[][] matrix, String input) {
-        this.matrix = matrix;
-        this.input = input;
+    public CharArrayWithStringData(char[][] first, String second) {
+        super(first, second);
     }
 
     @Override
     public String asText() {
-        return "Matrix: " + Arrays.deepToString(matrix) + " input: " + input;
+        return "First: " + Arrays.deepToString(first) + " second: " + second;
     }
 }

@@ -7,8 +7,8 @@ public class SmallestSubarrayGreaterOrEqualThan extends BaseAlgorithm<ArrayWithI
 
     @Override
     void execute() {
-        int[] arr = input.array;
-        int sum = input.number;
+        int[] arr = input.first;
+        int sum = input.second;
         int result = solve(arr, sum);
         System.out.println("Result is: " + result);
     }
@@ -34,6 +34,6 @@ public class SmallestSubarrayGreaterOrEqualThan extends BaseAlgorithm<ArrayWithI
 
     @Override
     protected String describe() {
-        return "Smallest subarray length that is greater or equal than " + input.number;
+        return "Smallest subarray length that is greater or equal than " + input.second;
     }
 }
