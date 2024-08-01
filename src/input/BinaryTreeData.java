@@ -46,10 +46,14 @@ public class BinaryTreeData extends AlgorithmData<BinaryTree> {
         }
 
         StringBuilder sb = new StringBuilder("\n");
+        int spacing = content.size();
         for (List<Integer> list : content) {
             for (int val : list) {
-                sb.append(val).append("   ");
+                StringBuilder spacingBuilder = new StringBuilder("");
+                spacingBuilder.append(" ".repeat(Math.max(0, spacing)));
+                sb.append(spacingBuilder).append(val);
             }
+            spacing--;
             sb.append("\n");
         }
         return sb.toString();

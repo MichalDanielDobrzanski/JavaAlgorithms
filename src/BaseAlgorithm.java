@@ -11,7 +11,7 @@ public abstract class BaseAlgorithm<INPUT extends BaseAlgorithmData> {
 
     protected abstract String describe();
 
-    String describeWithInput() {
+    public String describeWithInput() {
         return describe() + " for " + input.asText();
     }
 

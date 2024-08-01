@@ -93,9 +93,30 @@ public class Main {
     }
 
     private static void countUnivalueTrees(List<BaseAlgorithm> algos) {
-        BinaryTree.Node left = new BinaryTree.Node(1, null, null);
-        BinaryTree.Node right = new BinaryTree.Node(1, null, null);
+        // 1
+        BinaryTree.Node leftLeft = new BinaryTree.Node(1, null, null);
+        BinaryTree.Node leftRight = new BinaryTree.Node(1, null, null);
+        BinaryTree.Node left = new BinaryTree.Node(1, leftLeft, leftRight);
+        BinaryTree.Node rightLeft = new BinaryTree.Node(1, null, null);
+        BinaryTree.Node rightRight = new BinaryTree.Node(1, null, null);
+        BinaryTree.Node right = new BinaryTree.Node(1, rightLeft, rightRight);
         BinaryTree.Node root = new BinaryTree.Node(1, left, right);
+        BinaryTreeData binaryTreeData = new BinaryTreeData(new BinaryTree(root));
+        algos.add(new CountUnivalueTrees(binaryTreeData));
+
+        // 2
+        prepareAnotherBinaryTreeInput(algos);
+    }
+
+    private static void prepareAnotherBinaryTreeInput(List<BaseAlgorithm> algos) {
+        BinaryTree.Node root = new BinaryTree.Node(1);
+        root.left = new BinaryTree.Node(2);
+        root.right = new BinaryTree.Node(3);
+        root.left.left = new BinaryTree.Node(4);
+        root.left.right = new BinaryTree.Node(5);
+        root.right.left = new BinaryTree.Node(6);
+        root.right.right = new BinaryTree.Node(7);
+
         BinaryTreeData binaryTreeData = new BinaryTreeData(new BinaryTree(root));
         algos.add(new CountUnivalueTrees(binaryTreeData));
     }
