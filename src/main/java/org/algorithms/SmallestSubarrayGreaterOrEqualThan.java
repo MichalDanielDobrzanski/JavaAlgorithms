@@ -1,8 +1,9 @@
-import input.ArrayWithIntData;
-import input.base.BaseAlgorithm;
+package org.algorithms;
+
+import org.algorithms.input.ArrayWithIntData;
 
 public class SmallestSubarrayGreaterOrEqualThan extends BaseAlgorithm<ArrayWithIntData> {
-    SmallestSubarrayGreaterOrEqualThan(ArrayWithIntData arrayWithIntData) {
+    public SmallestSubarrayGreaterOrEqualThan(ArrayWithIntData arrayWithIntData) {
         super(arrayWithIntData);
     }
 

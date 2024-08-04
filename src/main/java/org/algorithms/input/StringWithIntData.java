@@ -1,6 +1,6 @@
-package input;
+package org.algorithms.input;
 
-import input.base.AlgorithmPairData;
+import org.algorithms.AlgorithmPairData;
 
 public class StringWithIntData extends AlgorithmPairData<String, Integer> {
 

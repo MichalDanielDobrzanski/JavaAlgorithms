@@ -1,6 +1,6 @@
-package input;
+package org.algorithms.input;
 
-import input.base.AlgorithmData;
+import org.algorithms.AlgorithmData;
 
 public class StringData extends AlgorithmData<String> {
 

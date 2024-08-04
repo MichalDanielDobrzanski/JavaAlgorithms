@@ -1,0 +1,33 @@
+[
+  {
+    "age": 30.0,
+    "city": "New York",
+    "country": "USA",
+    "favorite_foods": {
+      "Breakfast": "pancakes",
+      "dinner": "pasta"
+    },
+    "friends": [
+      {
+        "age": 28.0,
+        "city": "New York",
+        "country": "USA",
+        "name": "Jane"
+      }
+    ],
+    "Hobbies": [
+      "reading",
+      "swimming",
+      "hiking"
+    ],
+    "name": "John",
+    "occupation": "programmer"
+  },
+  {
+    "age": 32.0,
+    "city": "London",
+    "country": "UK",
+    "name": "Tom",
+    "occupation": "teacher"
+  }
+]

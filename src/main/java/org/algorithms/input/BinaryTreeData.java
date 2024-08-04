@@ -1,7 +1,6 @@
-package input;
+package org.algorithms.input;
 
-import input.base.AlgorithmData;
-import input.model.BinaryTree;
+import org.algorithms.AlgorithmData;
 
 import java.util.LinkedList;
 import java.util.List;

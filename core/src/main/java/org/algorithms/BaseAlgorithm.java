@@ -1,4 +1,4 @@
-package input.base;
+package org.algorithms;
 
 public abstract class BaseAlgorithm<INPUT extends BaseAlgorithmData> {
     protected INPUT input;

@@ -1,5 +1,6 @@
-import input.StringData;
-import input.base.BaseAlgorithm;
+package org.algorithms;
+
+import org.algorithms.input.StringData;
 
 import java.util.*;
 
@@ -7,7 +8,7 @@ import java.util.*;
  * https://leetcode.com/problems/3sum/submissions/
  */
 public class ThreeSum extends BaseAlgorithm<StringData> {
-    ThreeSum(StringData stringData) {
+    public ThreeSum(StringData stringData) {
         super(stringData);
     }
 

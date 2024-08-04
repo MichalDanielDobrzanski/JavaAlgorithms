@@ -1,5 +1,6 @@
-import input.StringWithIntData;
-import input.base.BaseAlgorithm;
+package org.algorithms;
+
+import org.algorithms.input.StringWithIntData;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +15,7 @@ import java.util.Map;
  * Ref: https://gist.github.com/Schachte/87d7c0165a584f26b3ad7845f8010387
  */
 public class LongestSubstringLengthWithKMostDistinctCharacters extends BaseAlgorithm<StringWithIntData> {
-    LongestSubstringLengthWithKMostDistinctCharacters(StringWithIntData stringWithIntData) {
+    public LongestSubstringLengthWithKMostDistinctCharacters(StringWithIntData stringWithIntData) {
         super(stringWithIntData);
     }
 

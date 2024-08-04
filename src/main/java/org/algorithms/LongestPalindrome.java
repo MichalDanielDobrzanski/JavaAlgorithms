@@ -1,9 +1,10 @@
-import input.StringData;
-import input.base.BaseAlgorithm;
+package org.algorithms;
+
+import org.algorithms.input.StringData;
 
 public class LongestPalindrome extends BaseAlgorithm<StringData> {
 
-    LongestPalindrome(StringData input) {
+    public LongestPalindrome(StringData input) {
         super(input);
     }
 

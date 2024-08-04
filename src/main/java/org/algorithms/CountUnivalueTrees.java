@@ -1,25 +1,26 @@
-import input.BinaryTreeData;
-import input.base.BaseAlgorithm;
-import input.model.BinaryTree;
+package org.algorithms;
+
+import org.algorithms.input.BinaryTree;
+import org.algorithms.input.BinaryTreeData;
 
 /**
- *     1
- *    / \
- *   1   1
- *  / \ / \
+ * 1
+ * / \
+ * 1   1
+ * / \ / \
  * 1  1 1  1
  * (7)
- *
- *     1
- *    / \
- *   2   3
- *  / \ / \
+ * <p>
+ * 1
+ * / \
+ * 2   3
+ * / \ / \
  * 4  5 6  7
  * (4)
  */
 public class CountUnivalueTrees extends BaseAlgorithm<BinaryTreeData> {
 
-    CountUnivalueTrees(BinaryTreeData binaryTreeData) {
+    public CountUnivalueTrees(BinaryTreeData binaryTreeData) {
         super(binaryTreeData);
     }
 

@@ -1,9 +1,10 @@
-import input.ArrayWithIntData;
-import input.base.BaseAlgorithm;
+package org.algorithms;
+
+import org.algorithms.input.ArrayWithIntData;
 
 public class BinarySearch extends BaseAlgorithm<ArrayWithIntData> {
 
-    BinarySearch(ArrayWithIntData arrayWithInt) {
+    public BinarySearch(ArrayWithIntData arrayWithInt) {
         super(arrayWithInt);
     }
 

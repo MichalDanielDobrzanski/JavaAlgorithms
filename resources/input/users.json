@@ -1,0 +1,54 @@
+[
+  {
+    "name": "John",
+    "age": 30.0,
+    "city": "New York",
+    "country": "USA",
+    "Hobbies": [
+      "reading",
+      "swimming",
+      "hiking",
+      "swimming"
+    ],
+    "occupation": "programmer",
+    "favorite_foods": {
+      "Breakfast": "pancakes",
+      "Lunch": "",
+      "dinner": "pasta",
+      "Snack": ""
+    },
+    "gear": {
+      "type": "",
+      "material": "",
+      "color": null
+    },
+    "affiliations": [
+      "",
+      "",
+      ""
+    ],
+    "friends": [
+      {
+        "name": "Jane",
+        "age": 28.0,
+        "city": "New York",
+        "country": "USA",
+        "occupation": null
+      }
+    ]
+  },
+  {
+    "name": "Tom",
+    "age": 32.0,
+    "city": "London",
+    "country": "UK",
+    "occupation": "teacher"
+  },
+  {
+    "name": "Jane",
+    "age": 28.0,
+    "city": "New York",
+    "country": "USA",
+    "occupation": null
+  }
+]

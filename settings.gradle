@@ -1,0 +1,5 @@
+rootProject.name = 'algorithms'
+include "core"
+include "parsers"
+include 'sorts'
+

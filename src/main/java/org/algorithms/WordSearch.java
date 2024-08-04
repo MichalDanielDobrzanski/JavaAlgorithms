@@ -1,8 +1,9 @@
-import input.CharArrayWithStringData;
-import input.base.BaseAlgorithm;
+package org.algorithms;
+
+import org.algorithms.input.CharArrayWithStringData;
 
 public class WordSearch extends BaseAlgorithm<CharArrayWithStringData> {
-    WordSearch(CharArrayWithStringData charArrayWithStringData) {
+    public WordSearch(CharArrayWithStringData charArrayWithStringData) {
         super(charArrayWithStringData);
     }
 

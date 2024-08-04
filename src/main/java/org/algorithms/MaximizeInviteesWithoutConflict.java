@@ -1,5 +1,6 @@
-import input.IntWithListData;
-import input.base.BaseAlgorithm;
+package org.algorithms;
+
+import org.algorithms.input.IntWithListData;
 
 import java.util.List;
 
@@ -7,7 +8,7 @@ public class MaximizeInviteesWithoutConflict extends BaseAlgorithm<IntWithListDa
 
     private static int maxInvitees = 0;
 
-    MaximizeInviteesWithoutConflict(IntWithListData<int[]> intWithListData) {
+    public MaximizeInviteesWithoutConflict(IntWithListData<int[]> intWithListData) {
         super(intWithListData);
     }
 

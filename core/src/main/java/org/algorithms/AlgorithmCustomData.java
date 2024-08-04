@@ -1,4 +1,4 @@
-package input.base;
+package org.algorithms;
 
 public class AlgorithmCustomData implements BaseAlgorithmData {
     @Override

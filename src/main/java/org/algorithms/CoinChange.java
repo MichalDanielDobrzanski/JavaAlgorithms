@@ -1,10 +1,11 @@
-import input.ArrayWithIntData;
-import input.base.BaseAlgorithm;
+package org.algorithms;
+
+import org.algorithms.input.ArrayWithIntData;
 
 import java.util.Arrays;
 
 public class CoinChange extends BaseAlgorithm<ArrayWithIntData> {
-    CoinChange(ArrayWithIntData arrayWithIntData) {
+    public CoinChange(ArrayWithIntData arrayWithIntData) {
         super(arrayWithIntData);
     }
 

@@ -1,10 +1,11 @@
-import input.ArrayData;
-import input.base.BaseAlgorithm;
+package org.algorithms;
+
+import org.algorithms.input.ArrayData;
 
 import java.util.Arrays;
 
 public class QuickSort extends BaseAlgorithm<ArrayData> {
-    QuickSort(ArrayData arrayData) {
+    public QuickSort(ArrayData arrayData) {
         super(arrayData);
     }
 

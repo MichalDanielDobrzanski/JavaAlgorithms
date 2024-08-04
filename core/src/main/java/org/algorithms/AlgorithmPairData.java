@@ -1,4 +1,4 @@
-package input.base;
+package org.algorithms;
 
 public abstract class AlgorithmPairData<T, R> implements BaseAlgorithmData {
     public T first;

@@ -1,5 +1,6 @@
-package org.algorithms;
+package org.algorithms.launch;
 
+import org.algorithms.*;
 import org.algorithms.input.*;
 
 import java.util.ArrayList;
@@ -15,14 +16,14 @@ public class Main {
 
         algos.addAll(Stream.of(new ArrayWithIntData(new int[]{2, 4, 5}, 7), new ArrayWithIntData(new int[]{1, 4, 5}, 11)).map(CoinChange::new).toList());
 
-        algos.addAll(List.of(new ArrayWithIntData(new int[]{4, 2, 2, 7, 8, 1, 2, 8, 1, 0}, 8)).stream().map(SmallestSubarrayGreaterOrEqualThan::new).toList());
+        algos.addAll(Stream.of(new ArrayWithIntData(new int[]{4, 2, 2, 7, 8, 1, 2, 8, 1, 0}, 8)).map(SmallestSubarrayGreaterOrEqualThan::new).toList());
 
 
         algos.addAll(Stream.of(new StringWithIntData("AAAHHIBC", 2)).map(LongestSubstringLengthWithKMostDistinctCharacters::new).toList());
 
         algos.addAll(Stream.of(new ArrayData(new int[]{7, 6, 4, 1, 9, 8, 3})).map(QuickSort::new).toList());
 
-        algos.addAll(List.of(new CharArrayWithStringData(new char[][]{new char[]{'A', 'B', 'C', 'E'}, new char[]{'S', 'F', 'C', 'S'}, new char[]{'A', 'D', 'E', 'E'}}, "ABCCED")).stream().map(WordSearch::new).toList());
+        algos.addAll(Stream.of(new CharArrayWithStringData(new char[][]{new char[]{'A', 'B', 'C', 'E'}, new char[]{'S', 'F', 'C', 'S'}, new char[]{'A', 'D', 'E', 'E'}}, "ABCCED")).map(WordSearch::new).toList());
 
         algos.add(new FriendsOfFriends(new AdjacencyListData(new List[]{List.of(2, 3),  // John(0)
                 List.of(2), // Paul(1)

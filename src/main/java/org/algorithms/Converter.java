@@ -1,5 +1,6 @@
-import input.StringData;
-import input.base.BaseAlgorithm;
+package org.algorithms;
+
+import org.algorithms.input.StringData;
 
 // This is a paragraph with a soft
 // line break.
@@ -19,7 +20,7 @@ import input.base.BaseAlgorithm;
 //
 // <p>This is another paragraph with a <del>strikethrough</del> word.</p>
 public class Converter extends BaseAlgorithm<StringData> {
-    Converter(StringData stringData) {
+    public Converter(StringData stringData) {
         super(stringData);
     }
 

@@ -1,12 +1,13 @@
-import input.StringData;
-import input.base.BaseAlgorithm;
+package org.algorithms;
+
+import org.algorithms.input.StringData;
 
 /**
  * https://leetcode.com/problems/gas-station/
  */
 public class GasStations extends BaseAlgorithm<StringData> {
 
-    GasStations(StringData stringData) {
+    public GasStations(StringData stringData) {
         super(stringData);
     }
 

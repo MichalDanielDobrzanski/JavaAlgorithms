@@ -1,4 +1,4 @@
-package org.algorithms.input.model;
+package org.algorithms.input;
 
 public class BinaryTree {
 

@@ -1,6 +1,6 @@
-package input;
+package org.algorithms.input;
 
-import input.base.AlgorithmPairData;
+import org.algorithms.AlgorithmPairData;
 
 import java.util.List;
 

@@ -1,5 +1,6 @@
-import input.AdjacencyListData;
-import input.base.BaseAlgorithm;
+package org.algorithms;
+
+import org.algorithms.input.AdjacencyListData;
 
 import java.util.*;
 

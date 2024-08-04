@@ -1,10 +1,11 @@
-package input;
+package org.algorithms.input;
 
-import input.base.AlgorithmData;
+import org.algorithms.AlgorithmData;
+import org.algorithms.BaseAlgorithmData;
 
 import java.util.Arrays;
 
-public class DoubleArrayData extends AlgorithmData<int[][]> {
+public class DoubleArrayData extends AlgorithmData<int[][]> implements BaseAlgorithmData {
     public DoubleArrayData(int[][] data) {
         super(data);
     }

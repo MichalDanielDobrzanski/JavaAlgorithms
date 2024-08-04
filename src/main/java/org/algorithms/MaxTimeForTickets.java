@@ -1,5 +1,6 @@
-import input.StringData;
-import input.base.BaseAlgorithm;
+package org.algorithms;
+
+import org.algorithms.input.StringData;
 
 /**
  * https://leetcode.com/problems/time-needed-to-buy-tickets/
@@ -7,7 +8,7 @@ import input.base.BaseAlgorithm;
 public class MaxTimeForTickets extends BaseAlgorithm<StringData> {
 
 
-    MaxTimeForTickets(StringData stringData) {
+    public MaxTimeForTickets(StringData stringData) {
         super(stringData);
     }
 
@@ -53,7 +54,6 @@ public class MaxTimeForTickets extends BaseAlgorithm<StringData> {
         return timeToBuy;
     }
 
-    
 
     @Override
     protected String describe() {

@@ -1,11 +1,12 @@
-import input.DoubleArrayData;
-import input.base.BaseAlgorithm;
+package org.algorithms;
+
+import org.algorithms.input.DoubleArrayData;
 
 import java.util.List;
 
 public class MedianOfSortedArrays extends BaseAlgorithm<DoubleArrayData> {
 
-    MedianOfSortedArrays(DoubleArrayData input) {
+    public MedianOfSortedArrays(DoubleArrayData input) {
         super(input);
     }
 
