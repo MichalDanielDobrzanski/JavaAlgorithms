@@ -13,11 +13,8 @@ import java.util.*;
  * Start point is (0,0).
  * End point is (m-1,n-1).
  * <p>
- * Additionally, you need to place radio stations along the path such that each station
- * can communicate with other stations within a certain distance of k.
- * You need to return a list with radio station positions.
- * A radio station communicates with another one within 1-long radius.
- * Radio stations can only be built on land cells (labelled as 1).
+ * Place the least number of radio stations along the shortest path with a minimum distance of
+ * k between the stations.
  * <p>
  * - You can move in 4 directions: up, down, left, and right.
  * - You can only move through land cells.
@@ -46,8 +43,8 @@ public class RadioStations extends BaseAlgorithm<AlgorithmCustomData> {
             System.out.println("\t- (" + point.x + ", " + point.y + ")");
         }
 
-        int minDistance = 2;
-        final List<Point> radioStationPositions = coverArea(grid, minDistance);
+        int minDistance = 3;
+        final List<Point> radioStationPositions = placeStations(path, minDistance);
         System.out.println("Placed radio stations at:");
         for (Point point : radioStationPositions) {
             System.out.println("\t- (" + point.x + ", " + point.y + ")");
@@ -123,8 +120,16 @@ public class RadioStations extends BaseAlgorithm<AlgorithmCustomData> {
         return Collections.emptyList();
     }
 
-    private List<Point> coverArea(int[][] grid, int minimumDistance) {
-        return Collections.emptyList();
+    private List<Point> placeStations(List<Point> shortestPath, int minimumDistance) {
+        List<Point> points = new ArrayList<>();
+
+        for (int i = 0; i < shortestPath.size(); i += minimumDistance) {
+            points.add(shortestPath.get(i));
+        }
+        if (!points.contains(shortestPath.get(shortestPath.size() - 1))) {
+            points.add(shortestPath.get(shortestPath.size() - 1));
+        }
+        return points;
     }
 
     @Override
