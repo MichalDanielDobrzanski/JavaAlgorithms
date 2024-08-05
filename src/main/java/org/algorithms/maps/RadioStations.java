@@ -3,6 +3,9 @@ package org.algorithms.maps;
 import org.algorithms.AlgorithmCustomData;
 import org.algorithms.BaseAlgorithm;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * You are given a 2D grid representing a map where each cell can either be land or water (m by n).
  * <p>
@@ -28,17 +31,60 @@ public class RadioStations extends BaseAlgorithm<AlgorithmCustomData> {
     @Override
     public void execute() {
         int[][] grid = {
-                {1, 0, 1, 1, 1},
+                {1, 1, 1, 1, 1},
                 {1, 1, 0, 1, 0},
-                {0, 1, 1, 0, 1},
+                {0, 1, 1, 1, 0},
                 {1, 0, 1, 1, 1}
         };
-        int maxDistanceBetweenStations = 2;
-        solve(grid, maxDistanceBetweenStations);
+        int xDest = grid.length - 1, yDest = grid[0].length - 1;
+        final int pathDistance = solve(grid, xDest, yDest);
+        System.out.println("Is there a path? Shortest path distance: " + pathDistance);
     }
 
-    private void solve(int[][] grid, int maxDistanceBetweenStations) {
-        // TODO: solve
+    private record Point(
+            int x,
+            int y,
+            int distance
+    ) {
+
+    }
+
+    private final int[] xOffsets = new int[]{0, -1, 0, 1};
+    private final int[] yOffsets = new int[]{-1, 0, 1, 0};
+
+    private boolean isValid(int[][] grid, int x, int y) {
+        return x >= 0 && x <= grid.length - 1 && y >= 0 && y <= grid[0].length - 1;
+    }
+
+    private int solve(int[][] grid, int xDest, int yDest) {
+        // 1. find a shortest path
+        // 2. place radio stations along the route
+
+        boolean[][] visited = new boolean[grid.length][grid[0].length];
+        Queue<Point> queue = new LinkedList<>();
+        Point start = new Point(0, 0, 0);
+        visited[0][0] = true;
+        queue.add(start);
+
+        while (!queue.isEmpty()) {
+            final Point point = queue.poll();
+
+            if (point.x == xDest && point.y == yDest) {
+                return point.distance;
+            }
+
+            for (int i = 0; i < 4; i++) {
+                int newX = point.x + xOffsets[i];
+                int newY = point.y + yOffsets[i];
+
+                if (isValid(grid, newX, newY) && !visited[newX][newY]) {
+                    // BFS
+                    visited[newX][newY] = true;
+                    queue.add(new Point(newX, newY, point.distance + 1));
+                }
+            }
+        }
+        return -1;
     }
 
     @Override

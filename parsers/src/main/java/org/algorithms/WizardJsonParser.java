@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+/**
+ * Parsing <a href="https://coderbyte.com/api/challenges/json/wizard-list">...</a>
+ */
 public class WizardJsonParser extends BaseAlgorithm<AlgorithmCustomData> {
     public WizardJsonParser() {
         super(new AlgorithmCustomData());
