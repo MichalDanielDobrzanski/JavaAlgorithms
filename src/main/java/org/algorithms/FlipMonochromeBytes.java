@@ -47,6 +47,8 @@ public class FlipMonochromeBytes extends BaseCustomAlgorithm {
                 int leftBit = (data[leftByteIdx] >> leftBitPos) & 1;
                 int rightBit = (data[rightByteIdx] >> rightBitPos) & 1;
 
+                // use XOR to flip bits in a byte array
+                // XOR in two places effectively makes a swap
                 if (leftBit != rightBit) {
                     data[leftByteIdx] ^= (1 << leftBitPos);
                     data[rightByteIdx] ^= (1 << rightBitPos);
