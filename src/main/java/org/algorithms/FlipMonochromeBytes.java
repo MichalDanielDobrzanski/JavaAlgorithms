@@ -6,6 +6,15 @@ import java.util.Arrays;
  * Given a monochrome bitmap represented as a flat array of bytes with one bit per pixel,
  * flip it horizontally in place.
  * Flip a monochrome bitmap horizontally in place.
+ *
+ * Sample input:
+ * 0011 1010
+ * output:
+ * 0101 1100
+ *
+ * Another:
+ * 0011 1110 1010
+ * 0101 0001 1100
  */
 public class FlipMonochromeBytes extends BaseCustomAlgorithm {
 
