@@ -37,11 +37,17 @@ public class Main {
 
         countUnivalueTrees(algos);
 
+        flipMonochromaticImage(algos);
+
         for (BaseAlgorithm algo : algos) {
             System.out.println(algo.describeWithInput() + ":");
             algo.execute();
             System.out.println("\n");
         }
+    }
+
+    private static void flipMonochromaticImage(List<BaseAlgorithm> algos) {
+        algos.add(new FlipMonochromeBytes());
     }
 
     private static void countUnivalueTrees(List<BaseAlgorithm> algos) {
