@@ -6,12 +6,12 @@ import java.util.Arrays;
  * Given a monochrome bitmap represented as a flat array of bytes with one bit per pixel,
  * flip it horizontally in place.
  * Flip a monochrome bitmap horizontally in place.
- *
+ * <p>
  * Sample input:
  * 0011 1010
  * output:
  * 0101 1100
- *
+ * <p>
  * Another:
  * 0011 1110 1010
  * 0101 0001 1100
@@ -35,6 +35,14 @@ public class FlipMonochromeBytes extends BaseCustomAlgorithm {
         byte[] data2 = {0b00111110, (byte) 0b10100000}; // Example: 0011 1110 1010
         flip(data2, 12, 1);
         System.out.println("Second: " + Arrays.toString(data2));
+
+
+        byte[] data3 = {0b00111010}; // Example: 0011 1010
+        flipAlternatively(data3, 8, 1);
+        System.out.println("Flip alternatively. First: " + Arrays.toString(data3));
+        byte[] data4 = {0b00111110, (byte) 0b10100000};
+        flipAlternatively(data4, 8, 1);
+        System.out.println("Flip alternatively. Second: " + Arrays.toString(data4));
     }
 
     /**
@@ -66,6 +74,25 @@ public class FlipMonochromeBytes extends BaseCustomAlgorithm {
         }
     }
 
+    private void flipAlternatively(byte[] data, int width, int height) {
+        int bytesPerRow = (width + 7) / 8;
+        for (int r = 0; r < height; r++) {
+            int rStart = bytesPerRow * r;
+            int rEnd = rStart + bytesPerRow - 1;
+
+            // flip
+            for (int i = 0; i < bytesPerRow / 2; i++) {
+                byte left = data[rStart + i];
+                byte right = data[rEnd - i];
+                data[rStart + i] = reverse(right);
+                data[rEnd - i] = reverse(left);
+            }
+
+            if (bytesPerRow % 2 == 1) {
+                data[rStart + bytesPerRow / 2] = reverse(data[rStart + bytesPerRow / 2]);
+            }
+        }
+    }
 
     private static byte reverse(byte b) {
         int rev = 0;
