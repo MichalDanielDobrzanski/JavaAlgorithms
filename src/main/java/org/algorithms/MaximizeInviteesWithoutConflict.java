@@ -28,27 +28,30 @@ public class MaximizeInviteesWithoutConflict extends BaseAlgorithm<IntWithListDa
         System.out.println("Max invitees: " + maxInvitees);
     }
 
-    private void findMaxInvitees(boolean[][] conflictGraph, boolean[] selected, int i, int count) {
-        if (i == conflictGraph.length) {
-            maxInvitees = Math.max(maxInvitees, count);
+    /**
+     * Brute force backtracking algorithm with O(2^n * n) time complecity.
+     */
+    private void findMaxInvitees(boolean[][] conflictGraph, boolean[] selected, int person, int invited) {
+        if (person == conflictGraph.length) {
+            maxInvitees = Math.max(maxInvitees, invited);
             return;
         }
 
-        boolean canInvite = true;
-        for (int j = 0; j < conflictGraph.length; j++) {
-            if (conflictGraph[i][j] && selected[j]) {
-                canInvite = false;
+        boolean canInviteAPerson = true;
+        for (int fr = 0; fr < conflictGraph.length; fr++) {
+            if (conflictGraph[person][fr] && selected[fr]) {
+                canInviteAPerson = false;
                 break;
             }
         }
 
-        if (canInvite) {
-            selected[i] = true;
-            findMaxInvitees(conflictGraph, selected, i + 1, count + 1);
-            selected[i] = false;
+        if (canInviteAPerson) {
+            selected[person] = true;
+            findMaxInvitees(conflictGraph, selected, person + 1, invited + 1);
+            selected[person] = false;
         }
         // try without me
-        findMaxInvitees(conflictGraph, selected, i + 1, count);
+        findMaxInvitees(conflictGraph, selected, person + 1, invited);
     }
 
     @Override
