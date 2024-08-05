@@ -60,6 +60,7 @@ public class MaximizeInviteesWithoutConflict extends BaseAlgorithm<IntWithListDa
 
     /**
      * Finding in a greedy way. We can start from the least conflicts.
+     * O(n^2) time complexity due to trying every person with every conflict.
      */
     public void findGreedy(boolean[][] conflictGraph, int people) {
         int[] degrees = new int[people];
