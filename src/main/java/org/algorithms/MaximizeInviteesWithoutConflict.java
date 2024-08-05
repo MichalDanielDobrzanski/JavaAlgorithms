@@ -2,6 +2,8 @@ package org.algorithms;
 
 import org.algorithms.input.IntWithListData;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 public class MaximizeInviteesWithoutConflict extends BaseAlgorithm<IntWithListData<int[]>> {
@@ -26,10 +28,12 @@ public class MaximizeInviteesWithoutConflict extends BaseAlgorithm<IntWithListDa
         boolean[] selected = new boolean[people];
         findMaxInvitees(conflictGraph, selected, 0, 0);
         System.out.println("Max invitees: " + maxInvitees);
+
+        findGreedy(conflictGraph, people);
     }
 
     /**
-     * Brute force backtracking algorithm with O(2^n * n) time complecity.
+     * Brute force backtracking algorithm with O(2^n * n) time complexity.
      */
     private void findMaxInvitees(boolean[][] conflictGraph, boolean[] selected, int person, int invited) {
         if (person == conflictGraph.length) {
@@ -52,6 +56,46 @@ public class MaximizeInviteesWithoutConflict extends BaseAlgorithm<IntWithListDa
         }
         // try without me
         findMaxInvitees(conflictGraph, selected, person + 1, invited);
+    }
+
+    /**
+     * Finding in a greedy way. We can start from the least conflicts.
+     */
+    public void findGreedy(boolean[][] conflictGraph, int people) {
+        int[] degrees = new int[people];
+        for (int i = 0; i < people; i++) {
+            for (int j = 0; j < people; j++) {
+                if (conflictGraph[i][j]) {
+                    degrees[i]++;
+                }
+            }
+        }
+        Integer[] sortedPeople = new Integer[people];
+        for (int i = 0; i < people; i++) {
+            sortedPeople[i] = i;
+        }
+        Arrays.sort(sortedPeople, Comparator.comparing(p -> degrees[p]));
+
+        System.out.println("Greedy O(n^2) approach:");
+        System.out.println(Arrays.toString(sortedPeople));
+
+        boolean[] selected = new boolean[people];
+        int maxInvitees = 0;
+        for (int i : sortedPeople) {
+            boolean canInvite = true;
+            for (int j = 0; j < people; j++) {
+                if (conflictGraph[i][j] && selected[j]) {
+                    canInvite = false;
+                    break;
+                }
+            }
+            if (canInvite) {
+                selected[i] = true;
+                maxInvitees++;
+            }
+        }
+
+        System.out.println("Max invitees greedy: " + maxInvitees);
     }
 
     @Override
