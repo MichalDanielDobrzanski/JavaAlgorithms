@@ -24,51 +24,29 @@ public class QuickSort extends BaseAlgorithm<ArrayData> {
         quickSort(array, pivotIndex + 1, r);
     }
 
-    // https://www.youtube.com/watch?v=Vtckgz38QHs
-    // [ _, 7, 6, 4, 1, 9, 8, 3 ]
-    //   ^  ^                 ^
-    //   i  j                 p
-
-    // after the end:
-    //      i                 p
-    //             swap
-    //      p                 i
-    //
-    // This approach is based on assumption that elements
-    // smaller than pivot must be moved to left.
-    // We skip greater elements, just handling smaller ones.
-    // i is initialised to l - 1 (negative index) to handle
-    // case of first element being smaller than index
+    /**
+     * Lomato partitioning
+     */
     private int partition(int[] array, int l, int r) {
-        int pivot = array[r];
-        // to handle first element smaller than pivot
-        int i = l - 1;
-        for (int j = l; j <= r - 1; j++) {
-            if (array[j] < pivot) {
-                // if the first is smaller, this will be
-                // a no-op in terms of making a swap of
-                // array[0] with array[0]
-                i++;
-                int t = array[i];
-                array[i] = array[j];
-                array[j] = t;
+        if (l >= r) return l;
+        int pivot = array[l];
+        int p = l;
+        int i = l + 1;
+        while (i <= r) {
+            if (array[i] < pivot) {
+                p++;
+                swap(array, i, p);
             }
+            i++;
         }
-        // we are at the end. The j index has arrived t the pivot.
-        // we handled all smaller elements and i points to the smaller
-        // than pivot.
+        swap(array, l, p);
+        return p;
+    }
 
-        // need to increment smaller index to perform final swap
-        // with pivot
-        i++;
-
-        // swapping with pivot (pointed by r)
-        int t = array[i];
-        array[i] = array[r];
-        array[r] = t;
-
-        // returning the index of a pivot for further recurrence
-        return i;
+    private void swap(int[] array, int s, int t) {
+        int temp = array[s];
+        array[s] = array[t];
+        array[t] = temp;
     }
 
     @Override
