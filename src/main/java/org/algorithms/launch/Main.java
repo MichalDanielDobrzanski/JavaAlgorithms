@@ -39,6 +39,8 @@ public class Main {
 
         flipMonochromaticImage(algos);
 
+        algos.add(new MemoizationDecorator());
+
         for (BaseAlgorithm algo : algos) {
             System.out.println(algo.describeWithInput() + ":");
             algo.execute();
