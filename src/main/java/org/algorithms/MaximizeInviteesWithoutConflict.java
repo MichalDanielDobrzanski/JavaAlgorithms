@@ -35,9 +35,9 @@ public class MaximizeInviteesWithoutConflict extends BaseAlgorithm<IntWithListDa
     /**
      * Brute force backtracking algorithm with O(2^n * n) time complexity.
      */
-    private void findMaxInvitees(boolean[][] conflictGraph, boolean[] selected, int person, int invited) {
+    private void findMaxInvitees(boolean[][] conflictGraph, boolean[] selected, int person, int invitedCount) {
         if (person == conflictGraph.length) {
-            maxInvitees = Math.max(maxInvitees, invited);
+            maxInvitees = Math.max(maxInvitees, invitedCount);
             return;
         }
 
@@ -51,11 +51,11 @@ public class MaximizeInviteesWithoutConflict extends BaseAlgorithm<IntWithListDa
 
         if (canInviteAPerson) {
             selected[person] = true;
-            findMaxInvitees(conflictGraph, selected, person + 1, invited + 1);
+            findMaxInvitees(conflictGraph, selected, person + 1, invitedCount + 1);
             selected[person] = false;
         }
         // try without me
-        findMaxInvitees(conflictGraph, selected, person + 1, invited);
+        findMaxInvitees(conflictGraph, selected, person + 1, invitedCount);
     }
 
     /**
