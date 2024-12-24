@@ -20,14 +20,14 @@ public class MaximizeInviteesWithoutConflict extends BaseAlgorithm<IntWithListDa
         int people = input.first;
         List<int[]> conflicts = input.second;
         boolean[][] conflictGraph = new boolean[people][people];
-        for (int[] conflict : conflicts) {
-            conflictGraph[conflict[0]][conflict[1]] = true;
-            conflictGraph[conflict[1]][conflict[0]] = true;
+        for (int[] c : conflicts) {
+            conflictGraph[c[0]][c[1]] = true;
+            conflictGraph[c[1]][c[0]] = true;
         }
 
         boolean[] selected = new boolean[people];
-        findMaxInvitees(conflictGraph, selected, 0, 0);
-        System.out.println("Max invitees: " + maxInvitees);
+        bruteForce(conflictGraph, selected, 0, 0);
+        System.out.println("Max invitees brute force: " + maxInvitees);
 
         findGreedy(conflictGraph, people);
     }
@@ -35,28 +35,28 @@ public class MaximizeInviteesWithoutConflict extends BaseAlgorithm<IntWithListDa
     /**
      * Brute force backtracking algorithm with O(2^n * n) time complexity.
      */
-    private void findMaxInvitees(boolean[][] conflictGraph, boolean[] selected, int person, int invitedCount) {
+    private void bruteForce(boolean[][] conflictGraph, boolean[] selected, int person, int invitees) {
         if (person == conflictGraph.length) {
-            maxInvitees = Math.max(maxInvitees, invitedCount);
+            maxInvitees = Math.max(maxInvitees, invitees);
             return;
         }
 
-        boolean canInviteAPerson = true;
+        boolean canInvite = true;
         for (int fr = 0; fr < conflictGraph.length; fr++) {
             if (conflictGraph[person][fr] && selected[fr]) {
-                canInviteAPerson = false;
+                canInvite = false;
                 break;
             }
         }
 
-        if (canInviteAPerson) {
+        if (canInvite) {
             selected[person] = true;
-            findMaxInvitees(conflictGraph, selected, person + 1, invitedCount + 1);
+            bruteForce(conflictGraph, selected, person + 1, invitees + 1);
             selected[person] = false;
         }
-        // try without me
-        findMaxInvitees(conflictGraph, selected, person + 1, invitedCount);
+        bruteForce(conflictGraph, selected, person + 1, invitees);
     }
+
 
     /**
      * Finding in a greedy way. We can start from the least conflicts.
