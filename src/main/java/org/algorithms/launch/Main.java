@@ -12,7 +12,7 @@ public class Main {
     public static void main(String[] args) {
         List<BaseAlgorithm> algos = new ArrayList<>(List.of(new MedianOfSortedArrays(new DoubleArrayData(new int[][]{new int[]{1, 2}, new int[]{3, 4}})), new LongestPalindrome(new StringData("babac")), new GasStations(new StringData(""))));
         algos.addAll(IntStream.range(7, 9).boxed().map((number) -> new BinarySearch(new ArrayWithIntData(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, number + 1))).toList());
-        algos.addAll(List.of(new MaxTimeForTickets(new StringData("")), new ThreeSum(new StringData("")), new Converter(new StringData(""))));
+        algos.addAll(List.of(new MaxTimeForTickets(new StringData("")), new ThreeSum(new StringData("")), new MarkdownToHtmlConverter(new StringData(""))));
 
         algos.addAll(Stream.of(new ArrayWithIntData(new int[]{2, 4, 5}, 7), new ArrayWithIntData(new int[]{1, 4, 5}, 11)).map(CoinChange::new).toList());
 
