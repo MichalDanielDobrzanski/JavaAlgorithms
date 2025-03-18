@@ -13,6 +13,10 @@ def countUnivalTree(root: Optional[TreeNode]) -> int:
         if node is None:
             return True, 0
 
+        # leaf case
+        if node.left is None and node.right is None:
+            return True, 1
+
         lunival, lc = count(node.left)
         runival, rc = count(node.right)
 
