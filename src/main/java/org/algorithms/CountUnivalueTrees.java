@@ -31,28 +31,31 @@ public class CountUnivalueTrees extends BaseAlgorithm<BinaryTreeData> {
         System.out.println("Subtrees count: " + count);
     }
 
-    private NodeResult countSubtrees(BinaryTree.Node node) {
-        if (node == null) return new NodeResult(true, 0);
-        NodeResult left = countSubtrees(node.left);
-        NodeResult right = countSubtrees(node.right);
+    private Tuple countSubtrees(BinaryTree.Node node) {
+        if (node == null) return new Tuple(true, 0);
 
-        boolean isUnivalue = true;
+        Tuple leftNode = countSubtrees(node.left);
+        Tuple rightNode = countSubtrees(node.right);
+
+        boolean isUnival = leftNode.isUnivalue && rightNode.isUnivalue;
+        int count = leftNode.count + rightNode.count;
 
         if (node.left != null && node.left.value != node.value) {
-            isUnivalue = false;
-        }
-        if (node.right != null && node.right.value != node.value) {
-            isUnivalue = false;
+            isUnival = false;
         }
 
-        if (isUnivalue) {
-            return new NodeResult(true, left.count + right.count + 1);
-        } else {
-            return new NodeResult(false, left.count + right.count);
+        if (node.right != null && node.right.value != node.value) {
+            isUnival = false;
         }
+
+        if (isUnival) {
+            count += 1;
+        }
+
+        return new Tuple(isUnival, count);
     }
 
-    private record NodeResult(
+    private record Tuple(
             boolean isUnivalue,
             int count
     ) {
