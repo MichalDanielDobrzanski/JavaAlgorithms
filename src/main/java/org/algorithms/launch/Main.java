@@ -41,6 +41,14 @@ public class Main {
 
         algos.add(new MemoizationDecorator());
 
+        algos.add(new EfficientRemovalOps(new ArrayData(
+                new int[]{1, 2, 3, -1, -1} // expected: [1]
+        )));
+        algos.add(new EfficientRemovalOps(new ArrayData(
+                new int[]{3, 5, -1, 7, -2, 4, 0, -3} // expected: [3, 7, 4]
+        )));
+
+        // solve all
         for (BaseAlgorithm algo : algos) {
             System.out.println(algo.describeWithInput() + ":");
             algo.execute();
