@@ -28,17 +28,18 @@ public class MaxInviteesNoConflict {
 
     /**
      * DFS over problem space.
-     *
+     * <p>
      * blocked: set of people who are not allowed to be invited (they conflict with someone already invited).
-     *  - like visited in DFS
+     * - like visited in DFS
      * currentSet: current invite list being built.
-     *  - like currentPath in DFS
+     * - like currentPath in DFS
      */
     private void backtrack(int curr,
                            int n,
                            List<Set<Integer>> graph,
                            Set<Integer> blocked,
                            List<Integer> currentSet) {
+        // leaf case
         if (curr == n) {
             if (currentSet.size() > maxSize) {
                 maxSize = currentSet.size();
@@ -50,26 +51,25 @@ public class MaxInviteesNoConflict {
         // Option 1: Skip this person
         backtrack(curr + 1, n, graph, blocked, currentSet);
 
-        // Option 2: Try Inviting the Current Person
+        // Option 2: Include the person, block other people (enemies)
         if (!blocked.contains(curr)) {
-            // Add them to the invite list.
             currentSet.add(curr);
 
-            // Remember who we just blocked so we can undo it later.
-            Set<Integer> newlyBlocked = new HashSet<>();
+            // Remember who we just blocked so we can undo it later
+            Set<Integer> newBlocks = new HashSet<>();
 
-            // Look at all the people they fight with.
             for (int enemy : graph.get(curr)) {
+                // Add them to the blocked list (they can’t be invited later).
                 if (blocked.add(enemy)) {
-                    newlyBlocked.add(enemy);
+                    newBlocks.add(enemy);
                 }
             }
 
             backtrack(curr + 1, n, graph, blocked, currentSet);
 
-            // Backtrack: undo changes
+            // backtrack - restore
             currentSet.remove(currentSet.size() - 1);
-            blocked.removeAll(newlyBlocked);
+            blocked.removeAll(newBlocks);
         }
     }
 }
