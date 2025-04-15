@@ -2,6 +2,11 @@ package org.algorithms.graph;
 
 import java.util.*;
 
+/**
+ * 🎯 Goal: Explain Why Backtracking Beats O(2ⁿ) in Practice
+ * <p>
+ * -> Backtracking is smart brute-force.
+ **/
 public class MaxInviteesNoConflict {
 
     private int maxSize = 0;
@@ -43,6 +48,10 @@ public class MaxInviteesNoConflict {
                            List<Set<Integer>> graph,
                            Set<Integer> blocked,
                            List<Integer> currentSet) {
+        // If even adding all remaining people would not beat the current best size,
+        // I can stop early — that’s a heuristic bound and avoids wasting time.
+        if (currentSet.size() + (n - curr) <= maxSize) return;
+
         // leaf case
         if (curr == n) {
             if (currentSet.size() > maxSize) {
@@ -56,6 +65,9 @@ public class MaxInviteesNoConflict {
         backtrack(curr + 1, n, graph, blocked, currentSet);
 
         // Option 2: Include the person, block other people (enemies)
+        //  If a person is in the blocked set, I know they conflict with someone I already invited
+        //  so I skip the entire subtree where that person is included.
+        //  That immediately cuts off a big part of the decision tree.
         if (!blocked.contains(curr)) {
             currentSet.add(curr);
 
