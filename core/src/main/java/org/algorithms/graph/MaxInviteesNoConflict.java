@@ -27,6 +27,10 @@ public class MaxInviteesNoConflict {
     }
 
     /**
+     * Problem: Maximise independent set - currentSet.
+     * <p>
+     * "If I include this node, I block its neighbors"
+     * <p>
      * DFS over problem space.
      * <p>
      * blocked: set of people who are not allowed to be invited (they conflict with someone already invited).
