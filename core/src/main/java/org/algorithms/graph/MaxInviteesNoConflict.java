@@ -27,8 +27,12 @@ public class MaxInviteesNoConflict {
     }
 
     /**
+     * DFS over problem space.
+     *
      * blocked: set of people who are not allowed to be invited (they conflict with someone already invited).
+     *  - like visited in DFS
      * currentSet: current invite list being built.
+     *  - like currentPath in DFS
      */
     private void backtrack(int curr,
                            int n,
