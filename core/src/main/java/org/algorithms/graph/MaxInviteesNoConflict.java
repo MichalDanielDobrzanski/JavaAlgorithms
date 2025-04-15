@@ -2,12 +2,9 @@ package org.algorithms.graph;
 
 import java.util.*;
 
-/**
- * 🎯 Goal: Explain Why Backtracking Beats O(2ⁿ) in Practice
- * <p>
- * -> Backtracking is smart brute-force.
- **/
 public class MaxInviteesNoConflict {
+
+    private static final boolean useBacktracking = false;
 
     private int maxSize = 0;
     List<Integer> maxInvitees;
@@ -27,11 +24,16 @@ public class MaxInviteesNoConflict {
         // find largest set of nodes, where no two are connected — that's called a maximum independent set.
 
         // "Finding the maximum independent set is NP-Hard in general, but since n = 50, it's small enough to use backtracking with pruning."
-        backtrack(0, n, adjList, new HashSet<>(), new ArrayList<>());
+        if (useBacktracking) {
+            backtrack(0, n, adjList, new HashSet<>(), new ArrayList<>());
+        } else {
+            bruteForce(0, n, adjList, new ArrayList<>());
+        }
         return maxInvitees;
     }
 
     /**
+     * Time complexity: O(2^n)
      * Problem: Maximise independent set - currentSet.
      * <p>
      * "If I include this node, I block its neighbors"
@@ -86,6 +88,41 @@ public class MaxInviteesNoConflict {
             // backtrack - restore
             currentSet.remove(currentSet.size() - 1);
             blocked.removeAll(newBlocks);
+        }
+    }
+
+    /**
+     * Time complexity: O(2^n * n)
+     */
+    private void bruteForce(int curr, int n,
+                            List<Set<Integer>> graph,
+                            List<Integer> currentSet) {
+        if (curr == n) {
+            if (currentSet.size() > maxSize) {
+                maxSize = currentSet.size();
+                maxInvitees = new ArrayList<>(currentSet);
+            }
+            return;
+        }
+
+        // Option 1: Don't invite current person
+        bruteForce(curr + 1, n, graph, currentSet);
+
+        // Option 2: Invite them, if they don’t conflict with anyone invited so far
+        boolean canInvite = true;
+        for (int invited : currentSet) {
+            if (graph.get(curr).contains(invited)) {
+                canInvite = false;
+                break;
+            }
+        }
+
+        if (canInvite) {
+            currentSet.add(curr);
+            // take with me
+            bruteForce(curr + 1, n, graph, currentSet);
+
+            currentSet.remove(currentSet.size() - 1);
         }
     }
 }
