@@ -34,26 +34,27 @@ def countUnivalTree(root: Optional[TreeNode]) -> int:
 if __name__ == '__main__':
     # Test Case 1
     root = None
-    print(countUnivalTree(root))  # Expected: 0
+    assert countUnivalTree(root) == 0
 
     # Test Case 2
     root = TreeNode(1)
-    print(countUnivalTree(root))  # Expected: 1
+    assert countUnivalTree(root) == 1
 
     # Test Case 3
     root = TreeNode(1,
                     TreeNode(1, TreeNode(1), TreeNode(1)),
                     TreeNode(1, None, TreeNode(1)))
-    print(countUnivalTree(root))  # Expected: 6
+    assert countUnivalTree(root) == 6
 
     # Test Case 4
     root = TreeNode(5,
                     TreeNode(1, TreeNode(5), TreeNode(5)),
                     TreeNode(5, None, TreeNode(5)))
-    print(countUnivalTree(root))  # Expected: 4
+    assert countUnivalTree(root) == 4
 
     # Test Case 5
     root = TreeNode(1,
                     TreeNode(2, TreeNode(4), TreeNode(5)),
                     TreeNode(3))
-    print(countUnivalTree(root))  # Expected: 3
+    assert countUnivalTree(root) == 3
+    print("All tests passed ✅")
