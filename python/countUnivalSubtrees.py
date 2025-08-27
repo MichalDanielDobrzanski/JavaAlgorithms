@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Tuple
 
 
 class TreeNode:
@@ -9,32 +9,25 @@ class TreeNode:
 
 
 def countUnivalTree(root: Optional[TreeNode]) -> int:
-    def count(node: Optional[TreeNode]) -> (bool, int):
-        if node is None:
+    def dfs(node: Optional[TreeNode]) -> Tuple[bool, int]:
+        if not node:
+            # Empty subtree is unival, contributes 0 to count
             return True, 0
 
-        if node.left is None and node.right is None:
-            return True, 1
+        left_unival, left_count = dfs(node.left)
+        right_unival, right_count = dfs(node.right)
 
-        lunival, lc = count(node.left)
-        runival, rc = count(node.right)
+        count = left_count + right_count
 
-        total = lc + rc
+        if (left_unival
+                and right_unival
+                and (node.left is None or node.left.val == node.val)
+                and (node.right is None or node.right.val == node.val)):
+            return True, count + 1
 
-        isUnival = lunival and runival
+        return False, count
 
-        if node.left and node.left.val != node.val:
-            isUnival = False
-
-        if node.right and node.right.val != node.val:
-            isUnival = False
-
-        if isUnival:
-            total += 1
-
-        return isUnival, total
-
-    return count(root)[1]
+    return dfs(root)[1]
 
 
 # Press the green button in the gutter to run the script.
