@@ -51,8 +51,8 @@ public class DijkstrasAlgorithm {
                 // edge relaxation
                 if (distances[edge.to] > distances[curr.v] + edge.weight) {
                     distances[edge.to] = distances[curr.v] + edge.weight;
+                    pq.add(new Node(edge.to, distances[edge.to]));
                 }
-                pq.add(new Node(edge.to, distances[edge.to]));
             }
         }
 
