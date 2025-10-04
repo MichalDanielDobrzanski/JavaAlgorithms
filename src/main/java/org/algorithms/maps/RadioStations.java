@@ -36,7 +36,7 @@ public class RadioStations extends BaseAlgorithm<AlgorithmCustomData> {
                 {1, 0, 1, 1, 1}
         };
         int xDest = grid.length - 1, yDest = grid[0].length - 1;
-        final List<Point> path = solve(grid, xDest, yDest);
+        final List<Point> path = getShortestPath(grid, xDest, yDest);
         System.out.println("Is there a path? Shortest path distance: " + (path.size() - 1));
         System.out.println("Points along the shortest path:");
         for (Point point : path) {
@@ -77,7 +77,7 @@ public class RadioStations extends BaseAlgorithm<AlgorithmCustomData> {
         return x >= 0 && x <= grid.length - 1 && y >= 0 && y <= grid[0].length - 1 && grid[x][y] == 1;
     }
 
-    private List<Point> solve(int[][] grid, int xDest, int yDest) {
+    private List<Point> getShortestPath(int[][] grid, int xDest, int yDest) {
         // 1. find the shortest path
         // 2. place radio stations along the route
 
@@ -87,8 +87,8 @@ public class RadioStations extends BaseAlgorithm<AlgorithmCustomData> {
         visited[0][0] = true;
         queue.add(start);
 
-        Map<Point, Point> parentMap = new HashMap<>();
-        parentMap.put(start, null);
+        Map<Point, Point> nodeToParentMap = new HashMap<>();
+        nodeToParentMap.put(start, null);
 
         while (!queue.isEmpty()) {
             final Point point = queue.poll();
@@ -99,7 +99,7 @@ public class RadioStations extends BaseAlgorithm<AlgorithmCustomData> {
                 Point curr = point;
                 while (curr != null) {
                     shortestPathPoints.add(0, curr);
-                    curr = parentMap.get(curr);
+                    curr = nodeToParentMap.get(curr);
                 }
                 return shortestPathPoints;
             }
@@ -113,7 +113,7 @@ public class RadioStations extends BaseAlgorithm<AlgorithmCustomData> {
                     visited[newX][newY] = true;
                     var p = new Point(newX, newY, point.distance + 1);
                     queue.add(p);
-                    parentMap.put(p, point);
+                    nodeToParentMap.put(p, point);
                 }
             }
         }
