@@ -39,6 +39,11 @@ public class MaxInviteesWithoutProblems {
     // recurrence formula - going forward:
     // prev state => next state
     // getMax(i,chosen) <= max(getMax(i+1, chosen), getMax(i+1, chosen with i))
+    //
+    // Runtime calculation
+    // O(n) - for checking if we can invite
+    // O(2^n) - for recurrence (binary tree)
+    // total runtime: O(n * 2^n)
     private void getMax(int n, boolean[][] adjMatrix, int node, boolean[] invited) {
         int currSize = 0;
         for (var inv: invited) if (inv) currSize++;
@@ -53,7 +58,7 @@ public class MaxInviteesWithoutProblems {
         int possibleToInvite = n - node;
         if (currSize + possibleToInvite <= maxInvited) return;
 
-        // check for current node
+        // check for current node - O(n)
         boolean canInvite = !invited[node];
         for (int inv = 0; inv < n; inv++) {
             if (invited[inv] && adjMatrix[node][inv]) {
@@ -62,7 +67,8 @@ public class MaxInviteesWithoutProblems {
             }
         }
 
-        getMax(n, adjMatrix, node+1, invited); // no invited case
+        // O(2^n)
+        getMax(n, adjMatrix, node+1, invited); // not invited case
         if (canInvite) {
             // invited case - with backtracking
             invited[node] = true;
