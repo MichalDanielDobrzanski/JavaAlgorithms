@@ -39,6 +39,7 @@ public class DijkstrasAlgorithm {
         pq.add(new Node(startNode, 0));
 
         while (!pq.isEmpty()) {
+            // happens up to O(V) times
             Node curr = pq.poll();
 
             if (visited[curr.v]) continue;
@@ -51,6 +52,7 @@ public class DijkstrasAlgorithm {
                 // edge relaxation
                 if (distances[edge.to] > distances[curr.v] + edge.weight) {
                     distances[edge.to] = distances[curr.v] + edge.weight;
+                    // add() happens up to O(E) times
                     pq.add(new Node(edge.to, distances[edge.to]));
                 }
             }
