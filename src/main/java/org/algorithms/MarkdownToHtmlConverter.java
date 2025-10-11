@@ -2,9 +2,6 @@ package org.algorithms;
 
 import org.algorithms.input.StringData;
 
-import java.util.ArrayList;
-import java.util.List;
-
 // This is a paragraph with a soft
 // line break.
 //
@@ -29,102 +26,112 @@ public class MarkdownToHtmlConverter extends BaseAlgorithm<StringData> {
 
     @Override
     public void execute() {
-        String input = "This is a paragraph with a soft\n" +
-                "line break.\n" +
-                "\n" +
-                "This is another paragraph that has\n" +
-                "> Some text that\n" +
-                "> is in a\n" +
-                "> block quote.\n" +
-                "\n" +
-                "This is another paragraph with a ~~outer ~~inner~~ outer~~ word.";
-        String output = processMarkdown(input);
+        String output = processMarkdown(input.data);
         System.out.println(output);
     }
 
-    //     * Input:
-//     *  This is a paragraph with a soft
-//     *  line break.
-//     *
-//     *  This is another paragraph that has
-//     *  > Some text that
-//     *  > is in a
-//     *  > block quote.
-//     *
-//     *  This is another paragraph with a ~~strikethrough~~ word.
-//     *
-//     * Output:
-//     *  <p>This is a paragraph with a soft<br />line break.</p>
-//     *
-//     *  <p>This is another paragraph that has <br />
-//     *   <blockquote>Some text that<br />is in a<br />block quote.</blockquote>
-//     *  </p>
-//     *
-//     *  <p>This is another paragraph with a <del>strikethrough</del> word.</p>
     private String processMarkdown(String input) {
         if (input == null || input.isEmpty()) return "";
 
-        String[] paragraphs = input.split("\n\n");
-        List<String> processed = new ArrayList<>();
+        /*
+             “Next, I’ll split paragraphs on one-or-more blank lines. I’ll use \\n\\n+ so multiple blank lines still separate one paragraph.”
+         */
+        String[] paragraphs = input.trim().split("\\n\\n+");
+        StringBuilder html = new StringBuilder();
 
-        for (String p : paragraphs) {
-            processed.add(processParagraph(p));
+        for (int i = 0; i < paragraphs.length; i++) {
+            /*
+                “I’ll join results with double newlines to keep output readable.”
+             */
+            if (i > 0) html.append("\n\n");
+            html.append(processParagraph(paragraphs[i]));
         }
 
-        return String.join("\n\n", processed);
+        return html.toString();
     }
 
+    /**
+     * “I’ll implement a small markdown→HTML subset: paragraphs split by blank lines,
+     * soft line breaks (\n → <br />),
+     * block quotes for lines starting with >, and strikethrough using ~~...~~.”
+     * <p>
+     * “I’ll keep it simple: split → process paragraph line-by-line → wrap with <p>.”
+     * <p>
+     * “No heavy regex; just clean string ops so it’s easy to reason about.”
+     */
     private String processParagraph(String paragraph) {
-        paragraph = processLineBreaks(paragraph);
-        paragraph = processBlockQuotes(paragraph);
-        paragraph = processStrikethrough(paragraph);
-        return wrapInParagraph(paragraph);
+        // 1️⃣ Handle block quotes first
+        paragraph = handleBlockQuotes(paragraph);
+
+        // 2️⃣ Handle line breaks
+        /*
+        “Now I convert single newlines to <br />. This is applied after quotes so I don’t have to micromanage breaks during the quote pass.”
+         */
+        paragraph = paragraph.replace("\n", "<br />");
+
+        // 3️⃣ Handle strikethrough
+        paragraph = handleStrikethrough(paragraph);
+
+        // 4️⃣ Wrap paragraph
+        return "<p>" + paragraph.trim() + "</p>";
     }
 
-    private String processStrikethrough(String paragraph) {
-        // this will not handle cases like: ~~outer ~~inner~~ outer~~
-        return paragraph.replaceAll("~~(.*?)~~", "<del>$1</del>");
-    }
-
-    private String processBlockQuotes(String paragraph) {
+    /**
+     * “I’ll split the paragraph into physical lines.”
+     * “I’ll walk each line; if trim().startsWith('>'), I open a <blockquote> the first time and keep appending lines inside it.”
+     * “When I hit a non-quote line after quotes, I close the <blockquote>.”
+     * “At the end, if I’m still inside a quote, I close it.”
+     * “I’ll strip the leading > and any single space afterward so content looks clean.”
+     */
+    private String handleBlockQuotes(String text) {
+        String[] lines = text.split("\n");
         StringBuilder result = new StringBuilder();
-        String[] lines = paragraph.split("<br />");
+        boolean insideQuote = false;
 
-        boolean isBlockquote = false;
         for (String line : lines) {
-            if (line.startsWith("> ")) {
-                if (!isBlockquote) {
-                    isBlockquote = true;
-                    result.append("\n  <blockquote>");
+            if (line.trim().startsWith(">")) {
+                if (!insideQuote) {
+                    insideQuote = true;
+                    result.append("<blockquote>");
                 }
-                result.append(line.substring(2)).append("<br />");
+                // remove "> " or ">" from start
+                String cleaned = line.trim().substring(1).trim();
+                result.append(cleaned).append("\n");
             } else {
-                if (isBlockquote) {
+                if (insideQuote) {
                     result.append("</blockquote>");
-                    isBlockquote = false;
+                    insideQuote = false;
                 }
-                result.append(line).append("<br />");
+                result.append(line).append("\n");
             }
         }
-        result.setLength(result.length() - 6);
 
-        if (isBlockquote) {
-            result.append("</blockquote>");
-        }
+        if (insideQuote) result.append("</blockquote>");
 
-        return result.toString();
+        return result.toString().trim();
     }
 
-    private String processLineBreaks(String paragraph) {
-        return paragraph.replace("\n", "<br />");
+    /**
+     * “I’ll implement a toggle parser: every ~~ flips <del> on or off.”
+     * “If the paragraph ends with an open <del>, I auto-close to keep valid HTML.”
+     */
+    private String handleStrikethrough(String text) {
+        // simple toggle parser: every pair of "~~" opens/closes <del>
+        StringBuilder sb = new StringBuilder();
+        boolean open = false;
 
-    }
-
-    private String wrapInParagraph(String paragraph) {
-        if (paragraph.contains("blockquote")) {
-            return "<p>" + paragraph.trim() + "\n</p>";
+        for (int i = 0; i < text.length(); i++) {
+            if (i + 1 < text.length() && text.charAt(i) == '~' && text.charAt(i + 1) == '~') {
+                sb.append(open ? "</del>" : "<del>");
+                open = !open;
+                i++; // skip second ~
+            } else {
+                sb.append(text.charAt(i));
+            }
         }
-        return "<p>" + paragraph.trim() + "</p>";
+
+        if (open) sb.append("</del>");
+        return sb.toString();
     }
 
     @Override
