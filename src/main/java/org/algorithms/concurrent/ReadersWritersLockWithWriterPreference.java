@@ -4,9 +4,9 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * This is reader-preference: if readers keep arriving, a writer can starve. That’s acceptable if you say so, but interviewers often ask for writer fairness.
+ * Writer-preference tweak (prevents writer starvation)
+ * Track waiting writers and block new readers when a writer is queued:
  * <p>
- * Readers-writers.
  * Requirement: Multiple readers can access the shared resource simultaneously, but writers must have exclusive access
  * If you want it crisp as invariants:
  * Safety (mutual exclusion):
@@ -14,18 +14,19 @@ import java.util.concurrent.locks.ReentrantLock;
  * - readers > 0 ⇒ !writerActive
  * Liveness (progress): if no one holds the resource, some waiter eventually proceeds.
  */
-class ReadersWritersLock {
-    private final ReentrantLock lock = new ReentrantLock(); // fair optional
+class ReadersWritersLockWithWriterPreference {
+    private final ReentrantLock lock = new ReentrantLock(true); // fair optional
     private final Condition okToRead = lock.newCondition();
     private final Condition okToWrite = lock.newCondition();
 
     private int readers = 0;
+    private int waitingWriters = 0;
     private boolean writerActive = false;
 
     public void readLock() throws InterruptedException {
         lock.lock();
         try {
-            while (writerActive) okToRead.await();
+            while (writerActive || waitingWriters > 0) okToRead.await(); // block if a writer is waiting
             readers++;
         } finally {
             lock.unlock();
@@ -44,9 +45,11 @@ class ReadersWritersLock {
     public void writeLock() throws InterruptedException {
         lock.lock();
         try {
+            waitingWriters++;
             while (writerActive || readers > 0) okToWrite.await(); // exclusivity
             writerActive = true;
         } finally {
+            waitingWriters--;
             lock.unlock();
         }
     }
